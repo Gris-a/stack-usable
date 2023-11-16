@@ -14,13 +14,13 @@ struct Stack
     data_t *data;
 };
 
-#define STACK_DUMP(stack_ptr)   LOG("%s:%s:%d:\n", __FILE__, __PRETTY_FUNCTION__, __LINE__);\
+#define STACK_DUMP(stack_ptr)   LOG("Called from %s:%s:%d:\n", __FILE__, __PRETTY_FUNCTION__, __LINE__);\
                                 StackDump(stack_ptr)
 
 #ifdef PROTECT
 #define STACK_VER(stack_ptr, ret_val_on_fail)   if(StackVer(stack_ptr))\
                                                 {\
-                                                    LOG("%s:%s: Error: invalid stack.\n", __FILE__, __PRETTY_FUNCTION__);\
+                                                    LOG("Error: invalid stack.\n")\
                                                     STACK_DUMP(stack_ptr);\
                                                     return ret_val_on_fail;\
                                                 }
