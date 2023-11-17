@@ -7,7 +7,7 @@
 #define PROTECT
 
 #ifndef LOG_CPP
-extern FILE *LOG_FILE; //log file
+extern FILE *LOG_FILE;
 #endif
 
 #define LOG(...) fprintf(LOG_FILE, __VA_ARGS__)
