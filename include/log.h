@@ -7,15 +7,14 @@
 #define PROTECT
 
 #ifndef LOG_CPP
-extern FILE *LOG_FILE;
+extern FILE *LOG_FILE; //log file
 #endif
 
 #define LOG(...) fprintf(LOG_FILE, __VA_ARGS__)
 #define LOGS(string) fputs(string, LOG_FILE)
 
 #ifdef PROTECT
-#define ASSERT(condition, action)   if(!(condition))\
-                                    {\
+#define ASSERT(condition, action)   if(!(condition)) {\
                                         LOG ("%s:%s:%d: Assertion cathced at ASSERT(", __FILE__, __PRETTY_FUNCTION__, __LINE__);\
                                         LOGS(#condition);\
                                         LOG (", ...);\n");\

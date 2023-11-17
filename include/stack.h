@@ -4,31 +4,30 @@
 #include "log.h"
 
 typedef long long data_t;
-#define DTS "%lld"
+#define DATA_FORMAT "%lld"
 
-struct Stack
-{
+const size_t BASE_CAPACITY = 2;
+struct Stack {
     size_t size;
     size_t capacity;
 
     data_t *data;
 };
 
-#define STACK_DUMP(stack_ptr)   LOG("Called from %s:%s:%d:\n", __FILE__, __PRETTY_FUNCTION__, __LINE__);\
-                                StackDump(stack_ptr)
+#define STACK_DUMP(stack_ptr) LOG("Called from %s:%s:%d:\n", __FILE__, __PRETTY_FUNCTION__, __LINE__);\
+                              StackDump(stack_ptr)
 
 #ifdef PROTECT
-#define STACK_VER(stack_ptr, ret_val_on_fail)   if(StackVer(stack_ptr))\
-                                                {\
-                                                    LOG("Error: invalid stack.\n")\
-                                                    STACK_DUMP(stack_ptr);\
-                                                    return ret_val_on_fail;\
-                                                }
+#define STACK_VERIFICATOR(stack_ptr, ret_val_on_fail)   if(!IsStackValid(stack_ptr)) {\
+                                                            LOG("Error: invalid stack.\n");\
+                                                            STACK_DUMP(stack_ptr);\
+                                                            return ret_val_on_fail;\
+                                                        }
 #else
 #define STACK_VER(...)
 #endif
 
-Stack StackCtor(const size_t capacity = 2);
+Stack StackCtor(const size_t capacity = BASE_CAPACITY);
 
 int StackDtor(Stack *stack);
 
@@ -41,7 +40,7 @@ int ClearStack(Stack *stack);
 void StackDump(Stack *stack);
 
 #ifdef PROTECT
-int StackVer(Stack *stack);
+int IsStackValid(Stack *stack);
 #endif
 
 #endif //STACK_H
