@@ -1,6 +1,8 @@
 #ifndef STACK_H
 #define STACK_H
 
+#include <stdbool.h>
+
 #include "log.h"
 
 typedef long long data_t;
@@ -40,7 +42,7 @@ int ClearStack(Stack *stack);
 void StackDump(Stack *stack);
 
 #ifdef PROTECT
-int IsStackValid(Stack *stack);
+bool IsStackValid(Stack *stack);
 #endif
 
 #endif //STACK_H

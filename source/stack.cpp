@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
@@ -14,7 +13,7 @@ Stack StackCtor(const size_t capacity) {
 
     stack.data = (data_t *)calloc(capacity * sizeof(data_t), sizeof(char));
 
-    ASSERT(stack.data != NULL, return {});
+    ASSERT(stack.data, return {});
 
     return stack;
 }
@@ -35,7 +34,7 @@ int StackDtor(Stack *stack) {
 static int StackExpansion(Stack *stack) {
     if(stack->size == stack->capacity) {
         data_t *data_r = (data_t *)realloc(stack->data, sizeof(data_t) * stack->capacity * 2);
-        ASSERT(data_r != NULL, return EXIT_FAILURE);
+        ASSERT(data_r, return EXIT_FAILURE);
 
         stack->capacity *= 2;
 
@@ -61,7 +60,7 @@ int PushStack(Stack *stack, const data_t val) {
 static int StackShrink(Stack *stack) {
     if(stack->size * 4 == stack->capacity) {
         data_t *data_r = (data_t *)realloc(stack->data, sizeof(data_t) * stack->capacity / 2);
-        ASSERT(data_r != NULL, return EXIT_FAILURE);
+        ASSERT(data_r, return EXIT_FAILURE);
 
         stack->capacity /= 2;
 
@@ -99,14 +98,14 @@ int ClearStack(Stack *stack) {
 }
 
 void StackDump(Stack *stack) {
-    ASSERT(stack != NULL, return);
+    ASSERT(stack, return);
 
     LOG("Stack[%p]:       \n"
         "\tsize     = %zu;\n"
         "\tcapacity = %zu;\n"
         "\tdata[%p]:      \n", stack, stack->size, stack->capacity, stack->data);
 
-    ASSERT(stack->data != NULL, return);
+    ASSERT(stack->data, return);
 
     for(size_t i = 0; i < stack->capacity; i++) {
         LOG("\t\t");
@@ -116,10 +115,10 @@ void StackDump(Stack *stack) {
 }
 
 #ifdef PROTECT
-int IsStackValid(Stack *stack)
+bool IsStackValid(Stack *stack)
 {
-    ASSERT(stack != NULL      , return false);
-    ASSERT(stack->data != NULL, return false);
+    ASSERT(stack      , return false);
+    ASSERT(stack->data, return false);
 
     ASSERT(stack->capacity <= UINT_MAX   , return false);
     ASSERT(stack->capacity != 0          , return false);
