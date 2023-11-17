@@ -9,7 +9,8 @@ typedef long long data_t;
 #define DATA_FORMAT "%lld"
 
 const size_t BASE_CAPACITY = 2;
-struct Stack {
+struct Stack
+{
     size_t size;
     size_t capacity;
 
@@ -20,11 +21,12 @@ struct Stack {
                               StackDump(stack_ptr)
 
 #ifdef PROTECT
-#define STACK_VERIFICATOR(stack_ptr, ret_val_on_fail)   if(!IsStackValid(stack_ptr)) {\
-                                                            LOG("Error: invalid stack.\n");\
-                                                            STACK_DUMP(stack_ptr);\
-                                                            return ret_val_on_fail;\
-                                                        }
+#define STACK_VERIFICATOR(stack_ptr, ret_val_on_fail) if(!IsStackValid(stack_ptr))\
+                                                      {\
+                                                          LOG("Error: invalid stack.\n");\
+                                                          STACK_DUMP(stack_ptr);\
+                                                          return ret_val_on_fail;\
+                                                      }
 #else
 #define STACK_VER(...)
 #endif

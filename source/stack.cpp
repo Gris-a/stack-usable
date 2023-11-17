@@ -4,7 +4,8 @@
 
 #include "../include/stack.h"
 
-Stack StackCtor(const size_t capacity) {
+Stack StackCtor(const size_t capacity)
+{
     ASSERT(capacity, return {});
 
     Stack stack = {};
@@ -18,7 +19,8 @@ Stack StackCtor(const size_t capacity) {
     return stack;
 }
 
-int StackDtor(Stack *stack) {
+int StackDtor(Stack *stack)
+{
     STACK_VERIFICATOR(stack, EXIT_FAILURE);
 
     stack->size     = ULLONG_MAX;
@@ -31,8 +33,10 @@ int StackDtor(Stack *stack) {
 }
 
 
-static int StackExpansion(Stack *stack) {
-    if(stack->size == stack->capacity) {
+static int StackExpansion(Stack *stack)
+{
+    if(stack->size == stack->capacity)
+    {
         data_t *data_r = (data_t *)realloc(stack->data, sizeof(data_t) * stack->capacity * 2);
         ASSERT(data_r, return EXIT_FAILURE);
 
@@ -46,7 +50,8 @@ static int StackExpansion(Stack *stack) {
     return EXIT_SUCCESS;
 }
 
-int PushStack(Stack *stack, const data_t val) {
+int PushStack(Stack *stack, const data_t val)
+{
     STACK_VERIFICATOR(stack, EXIT_FAILURE);
 
     EXEC_ASSERT(StackExpansion(stack) == EXIT_SUCCESS, return EXIT_FAILURE);
@@ -57,8 +62,10 @@ int PushStack(Stack *stack, const data_t val) {
 }
 
 
-static int StackShrink(Stack *stack) {
-    if(stack->size * 4 == stack->capacity) {
+static int StackShrink(Stack *stack)
+{
+    if(stack->size * 4 == stack->capacity)
+    {
         data_t *data_r = (data_t *)realloc(stack->data, sizeof(data_t) * stack->capacity / 2);
         ASSERT(data_r, return EXIT_FAILURE);
 
@@ -70,7 +77,8 @@ static int StackShrink(Stack *stack) {
     return EXIT_SUCCESS;
 }
 
-int PopStack(Stack *stack, data_t *ret_val) {
+int PopStack(Stack *stack, data_t *ret_val)
+{
     STACK_VERIFICATOR(stack, EXIT_FAILURE);
 
     ASSERT(stack->size != 0, return EXIT_FAILURE);
@@ -85,7 +93,8 @@ int PopStack(Stack *stack, data_t *ret_val) {
     return EXIT_SUCCESS;
 }
 
-int ClearStack(Stack *stack) {
+int ClearStack(Stack *stack)
+{
     STACK_VERIFICATOR(stack, EXIT_FAILURE);
 
     EXEC_ASSERT(memset(stack->data, 0, sizeof(data_t) * stack->size) == EXIT_SUCCESS, return EXIT_FAILURE);
@@ -97,7 +106,8 @@ int ClearStack(Stack *stack) {
     return EXIT_SUCCESS;
 }
 
-void StackDump(Stack *stack) {
+void StackDump(Stack *stack)
+{
     ASSERT(stack, return);
 
     LOG("Stack[%p]:       \n"
