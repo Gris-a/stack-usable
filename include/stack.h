@@ -28,7 +28,7 @@ struct Stack
                                                           return ret_val_on_fail;\
                                                       }
 #else
-#define STACK_VER(...)
+#define STACK_VERIFICATION(...)
 #endif
 
 Stack StackCtor(const size_t capacity = BASE_CAPACITY);
